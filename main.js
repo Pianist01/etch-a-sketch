@@ -6,48 +6,63 @@ When user hovers over squares with mouse, color of square will change.
 */
 
 /* Button To Start Etch-a-Sketch - START */
-let userChoice;
+
+const container = document.querySelector('.container');
+
 
 const btn = document.querySelector('#start');
 
+const reset = document.querySelector('#reset');
+
+
 btn.addEventListener('click', () => {
-  chooseGrid();
+  createRow();
 });
 /* Button To Start Etch-a-Sketch - END */
+
+/* Button To Reset Game - START */
+
+
+reset.addEventListener('click', () => {
+  location.reload();
+});
 
 
 /* Container - START */
 
 const div = document.createElement('div');
-div.classList.add('container');
-
-const container = document.querySelector('.container');
-container.textContent = 'This is a container';
+div.classList.add('grid');
+container.append(div);
 
 /* Container - END */
 
-
 /* Divs - START */
 
-let square = document.createElement('div');
-square.classList.add('inner');
-square.textContent = 'I am a square';
-container.appendChild(square);
+function createRow() {
+  let userChoice = prompt('Choose Grid Size from 16 - 100');
+  let i = 0;
+  let j = 0;
+  // let gridSize = 12.5;
+  // const numberX = userChoice * userChoice;
+  // const numberY = userChoice;
 
-function chooseGrid (number) {
-  let userChoice = prompt('How big do you want your grid to be?');
-  let i = 1;
-  let copy;
-  number = parseInt(userChoice);
-  while (i < number) {
-    document.querySelector('.inner');
-      copy = square.cloneNode(true);
-      square.after(copy);
-      i = i + 1;
-      if (number > 100) {
-        break;
-      }    
-  }
-  return copy;
+  // div.style.gridTemplateColumns = `repeat(${userChoice}, auto`;
+  // div.style.girdTemplateRows = `repeat(${userChoice}, auto`;
+
+  for (i = 0; i < userChoice; i++) {
+    for (j = 0; j < userChoice; j++) {
+    let row = document.createElement('div');
+    row.classList.add('across');
+    div.appendChild(row);
+
+    row.style.flexBasis = `calc(100% / ${userChoice})`;
+
+    row.addEventListener('mouseover', () => {
+      row.style.backgroundColor = 'white';
+    });
+    }
 }
-/* Divs - END */
+  if (userChoice > 100) {
+    alert('Too big!');
+  }
+}
